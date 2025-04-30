@@ -80,42 +80,44 @@ const Skills: React.FC = () => {
 
         <div className="mt-16 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4 text-blue-800 dark:text-blue-400">
-            Why I chose Java, React, and Python with ML:
+            Por que escolhi Java, React e Python com ML:
           </h3>
           <ul className="space-y-3 text-gray-700 dark:text-gray-300">
             <li className="flex items-start">
               <span className="text-orange-500 mr-2">▹</span>
               <span>
-                Java offers stability, performance and a mature ecosystem with
-                Spring Boot — ideal for building solid backend APIs.
+                O Java oferece estabilidade, performance e um ecossistema maduro
+                com o Spring Boot — ideal para construir APIs de backend
+                sólidas.
               </span>
             </li>
             <li className="flex items-start">
               <span className="text-orange-500 mr-2">▹</span>
               <span>
-                React provides speed and flexibility for building dynamic,
-                responsive user interfaces.
+                O React oferece velocidade e flexibilidade para construir
+                interfaces de usuário dinâmicas e responsivas.
               </span>
             </li>
             <li className="flex items-start">
               <span className="text-orange-500 mr-2">▹</span>
               <span>
-                Python, combined with libraries like Keras and scikit-learn,
-                allows me to implement machine learning models with ease.
+                O Python, combinado com bibliotecas como Keras e scikit-learn,
+                me permite implementar modelos de machine learning com
+                facilidade.
               </span>
             </li>
             <li className="flex items-start">
               <span className="text-orange-500 mr-2">▹</span>
               <span>
-                This stack lets me deliver end-to-end solutions — from UI to
-                data processing and intelligent predictions.
+                Esse stack me permite entregar soluções completas — da UI ao
+                processamento de dados e previsões inteligentes.
               </span>
             </li>
             <li className="flex items-start">
               <span className="text-orange-500 mr-2">▹</span>
               <span>
-                I’ve applied this in real and academic projects like Ecoletric,
-                integrating cloud APIs, ML and full-stack delivery.
+                Apliquei isso em projetos reais e acadêmicos como o Ecoletric,
+                integrando APIs em nuvem, ML e entrega full-stack.
               </span>
             </li>
           </ul>
