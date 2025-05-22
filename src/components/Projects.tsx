@@ -57,8 +57,40 @@ const Projects: React.FC = () => {
         "OAuth2",
         "Docker",
       ],
-      category: ["saas", "ai", "portfolio"],
+      category: ["saas", "ai", "portfolio", "java"],
       githubLink: "https://github.com/gustavodscruz/portfolioai-backend",
+    },
+    {
+      title: "GpsMottu - Api Java",
+      description:
+        "Sistema de controle de motos e localização em tempo real.",
+      image:
+        "https://github.com/GPMoto/java-api/raw/main/assets/gps-mottu-diagrama.drawio.png",
+      technologies: [
+        "Java",
+        "Spring Boot",
+        "Docker",
+        "Azure",
+        "Hibernate",
+        
+      ],
+      category: ["challenge", "fiap", "api", "java", "devops"],
+      githubLink: "https://github.com/GPMoto/java-api",
+    },
+    {
+      title: "GpsMottu - Mobile Application",
+      description:
+        "Sistema de controle de motos e localização em tempo real no seu dispositivo",
+      image:
+        "mobile-gps-mottu.png",
+      technologies: [
+        "React Native",
+        "Axios",
+        "Async Storage",
+        "React Navigation"
+      ],
+      category: ["challenge", "fiap", "front", "mobile" ],
+      githubLink: "https://github.com/GPMoto/Front",
     },
   ];
 
