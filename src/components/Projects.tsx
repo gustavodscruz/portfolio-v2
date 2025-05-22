@@ -92,6 +92,21 @@ const Projects: React.FC = () => {
       category: ["challenge", "fiap", "front", "mobile" ],
       githubLink: "https://github.com/GPMoto/Front",
     },
+    {
+      title: "Auto Delete Repos",
+      description:
+        "Script de automação de deleção de repositórios no Github com whitelist",
+      image:
+        "auto-delete-repos.png",
+      technologies: [
+        "Shell",
+        "Bash",
+        "ps1",
+        "Github API"
+      ],
+      category: ["devops", "shell", "linux", "github", "tools" ],
+      githubLink: "https://github.com/gustavodscruz/auto-delete-repos",
+    },
   ];
 
   const categories = [
