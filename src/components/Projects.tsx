@@ -20,7 +20,7 @@ const Projects: React.FC = () => {
       description:
         "Plataforma full-stack para gestão de energia solar. Utiliza previsão via machine learning com Python, API REST Java e frontend com Next.js.",
       image:
-        "https://genlight.vercel.app/_next/image?url=%2Fdashboard.png&w=828&q=75",
+        "https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg",
       technologies: [
         "Java",
         "Jersey",
@@ -65,7 +65,7 @@ const Projects: React.FC = () => {
       description:
         "Sistema de controle de motos e localização em tempo real.",
       image:
-        "https://github.com/GPMoto/java-api/raw/main/assets/gps-mottu-diagrama.drawio.png",
+        "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg",
       technologies: [
         "Java",
         "Spring Boot",
@@ -82,7 +82,7 @@ const Projects: React.FC = () => {
       description:
         "Sistema de controle de motos e localização em tempo real no seu dispositivo",
       image:
-        "mobile-gps-mottu.png",
+        "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg",
       technologies: [
         "React Native",
         "Axios",
@@ -97,7 +97,7 @@ const Projects: React.FC = () => {
       description:
         "Script de automação de deleção de repositórios no Github com whitelist",
       image:
-        "auto-delete-repos.png",
+        "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg",
       technologies: [
         "Shell",
         "Bash",
@@ -107,13 +107,65 @@ const Projects: React.FC = () => {
       category: ["devops", "shell", "linux", "github", "tools" ],
       githubLink: "https://github.com/gustavodscruz/auto-delete-repos",
     },
+    {
+      title: "Esphera Glamping",
+      description:
+        "Site institucional para resort de glamping desenvolvido com WordPress e Elementor, apresentando acomodações luxuosas e experiências únicas na natureza.",
+      image:
+        "https://lh3.googleusercontent.com/p/AF1QipM6m6Z7jZ1tjFnm0VjtM8NNC5MkGRPNbnmP2YHj=s680-w680-h510-rw",
+      technologies: [
+        "WordPress",
+        "Elementor",
+        "PHP",
+        "CSS"
+      ],
+      category: ["web", "wordpress", "cms"],
+      liveLink: "https://espheraglamping.com.br",
+    },
+    {
+      title: "GSNimbus - Sistema de Previsão de Desastres",
+      description:
+        "API REST Java para previsão de desastres naturais baseada em localização geográfica. Integra dados meteorológicos com IA para alertas de risco em tempo real.",
+      image:
+        "https://images.pexels.com/photos/1119162/pexels-photo-1119162.jpeg",
+      technologies: [
+        "Java 21",
+        "Spring Boot",
+        "Oracle DB",
+        "Docker",
+        "MapStruct",
+        "OpenAPI"
+      ],
+      category: ["java", "enterprise", "api", "ai"],
+      githubLink: "https://github.com/GSNimbus/java",
+    },
+    {
+      title: "LinkedIn Automation API",
+      description:
+        "API REST em Python para automação do LinkedIn com Selenium. Permite login automatizado, extração de certificados e armazenamento em banco de dados MySQL.",
+      image:
+        "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg",
+      technologies: [
+        "Python",
+        "FastAPI",
+        "Selenium",
+        "MySQL",
+        "SQLAlchemy",
+        "Docker"
+      ],
+      category: ["api", "python", "automation", "tools"],
+      githubLink: "https://github.com/gustavodscruz/automatiza-linkedin",
+    },
   ];
 
   const categories = [
     { id: "all", name: "All Projects" },
     { id: "enterprise", name: "Enterprise" },
     { id: "java", name: "Java" },
+    { id: "python", name: "Python" },
     { id: "web", name: "Web Applications" },
+    { id: "wordpress", name: "WordPress" },
+    { id: "automation", name: "Automation" },
     { id: "data", name: "Data Processing" },
     { id: "tools", name: "Tools & Libraries" },
     { id: "devops", name: "DevOps" },
