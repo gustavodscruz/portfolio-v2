@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Linkedin, Send, Github } from "lucide-react";
+import { useForm, ValidationError } from '@formspree/react';
 
 const Contact: React.FC = () => {
+  const [state, handleSubmit] = useForm("mzzvjeyv");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
-  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
-    null,
-  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -25,33 +22,33 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    await handleSubmit(e);
+  };
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setSubmitMessage(
-        "Thank you for your message! I will get back to you soon.",
-      );
-
-      // Reset form after successful submission
+  // Effect para resetar o formulário e mostrar mensagem quando bem-sucedido
+  useEffect(() => {
+    if (state.succeeded) {
+      // Resetar formulário imediatamente
       setFormData({
         name: "",
         email: "",
         subject: "",
         message: "",
       });
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus(null);
-        setSubmitMessage("");
+      
+      // Mostrar mensagem de sucesso
+      setShowSuccessMessage(true);
+      
+      // Limpar mensagem após 5 segundos
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
       }, 5000);
-    }, 1500);
-  };
+
+      return () => clearTimeout(timer);
+    }
+  }, [state.succeeded]);
 
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-800">
@@ -149,7 +146,7 @@ const Contact: React.FC = () => {
             <h3 className="text-xl font-semibold mb-6 text-blue-800 dark:text-blue-400">
               Me mande uma mensagem
             </h3>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label
@@ -168,6 +165,12 @@ const Contact: React.FC = () => {
                     placeholder="João da Silva"
                     required
                   />
+                  <ValidationError 
+                    prefix="Name" 
+                    field="name"
+                    errors={state.errors}
+                    className="text-red-500 text-sm mt-1"
+                  />
                 </div>
                 <div>
                   <label
@@ -185,6 +188,12 @@ const Contact: React.FC = () => {
                     className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                     placeholder="joao@gmail.com"
                     required
+                  />
+                  <ValidationError 
+                    prefix="Email" 
+                    field="email"
+                    errors={state.errors}
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
               </div>
@@ -205,6 +214,12 @@ const Contact: React.FC = () => {
                   placeholder="Projeto para Relatórios Financeiros"
                   required
                 />
+                <ValidationError 
+                  prefix="Subject" 
+                  field="subject"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
               <div className="mb-6">
                 <label
@@ -223,26 +238,32 @@ const Contact: React.FC = () => {
                   placeholder="Gostaria de discutir um projeto financeiro..."
                   required
                 ></textarea>
+                <ValidationError 
+                  prefix="Message" 
+                  field="message"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
 
-              {submitMessage && (
-                <div
-                  className={`mb-6 p-4 rounded-lg ${
-                    submitStatus === "success"
-                      ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                      : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                  }`}
-                >
-                  {submitMessage}
+              {showSuccessMessage && (
+                <div className="mb-6 p-4 rounded-lg bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                  Obrigado pela sua mensagem! Entrarei em contato em breve.
+                </div>
+              )}
+
+              {state.errors && !state.succeeded && (
+                <div className="mb-6 p-4 rounded-lg bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                  Ocorreu um erro ao enviar sua mensagem. Tente novamente.
                 </div>
               )}
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={state.submitting}
                 className="inline-flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-4 focus:ring-orange-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? (
+                {state.submitting ? (
                   <>
                     <svg
                       className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
