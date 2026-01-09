@@ -1,25 +1,31 @@
-name: "Clone Obsidian repo"
+name: Sync Obsidian posts
 
 on:
   push:
     branches:
       - main
       - develop
+    paths-ignore:
+      - "src/posts/**"
 
 permissions:
   contents: write
 
 jobs:
-  clone-posts:
+  sync-posts:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone Obsidian repo
+      - name: Checkout portfolio repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Obsidian repo
         uses: actions/checkout@v4
         with:
           repository: gustavodscruz/obsidian-notes
           path: obsidian
           token: ${{ secrets.OBS_TOKEN }}
-          persist-credentials: true
 
       - name: Copy posts
         run: |
@@ -29,13 +35,11 @@ jobs:
 
       - name: Commit and push posts
         run: |
-          git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git remote add origin https://github.com/${{ github.repository }}.git
-
-          git branch -M develop
           git add src/posts
-          git diff --quiet || git commit -am "chore: sync posts"
-          git push origin develop
+
+          git diff --cached --quiet || git commit -m "chore: sync posts from Obsidian"
+
+          git push origin HEAD
