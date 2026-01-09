@@ -6,6 +6,9 @@ on:
       - main
       - develop
 
+permissions:
+  contents: write
+
 jobs:
   clone-posts:
     runs-on: ubuntu-latest
@@ -16,9 +19,19 @@ jobs:
           repository: gustavodscruz/obsidian-notes
           path: obsidian
           token: ${{ secrets.OBS_TOKEN }}
+          persist-credentials: true
 
       - name: Copy posts
         run: |
           rm -rf src/posts
           mkdir -p src/posts
           cp -r obsidian/portfolio/posts/* src/posts/
+
+      - name: Commit and push posts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add src/posts
+          git diff --quiet || git commit -am "chore: sync posts"
+          git push
