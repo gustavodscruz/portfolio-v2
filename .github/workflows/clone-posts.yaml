@@ -1,0 +1,24 @@
+name: "Clone Obsidian repo"
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  clone-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Obsidian repo
+        uses: actions/checkout@v4
+        with:
+          repository: gustavodscruz/obsidian-notes
+          path: obsidian
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy posts
+        run: |
+          rm -rf src/posts
+          mkdir -p src/posts
+          cp -r obsidian/portfolio/posts/* src/posts/
