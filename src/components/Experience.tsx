@@ -13,6 +13,27 @@ type ExperienceItem = {
 const Experience: React.FC = () => {
   const experiences: ExperienceItem[] = [
     {
+      title: "AlugaMais – Estágio em Desenvolvimento Full-Stack TypeScript",
+      company: "AlugaMais",
+      period: "Out/2025 – Dez/2025",
+      location: "São Paulo, Brasil",
+      description: [
+        "Desenvolvimento de aplicações web com React, Next.js e NestJS.",
+        "Integração e otimização de banco de dados MariaDB.",
+        "Participação em dailies, code reviews e entregas contínuas.",
+      ],
+      technologies: [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "NestJS",
+        "MariaDB",
+        "Git",
+        "GitHub",
+        "Scrum",
+      ],
+    },
+    {
       title: "Desenvolvedor Web Júnior",
       company: "Platty",
       period: "Jan 2024 – Set 2024",

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ExternalLink, Github } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { loadPosts, type Post } from "../utils/load-posts";
 
 type Project = {
+  slug: string;
   title: string;
   description: string;
   image: string;
@@ -13,8 +16,40 @@ type Project = {
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState("all");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const projects: Project[] = [
+  useEffect(() => {
+    const loadProjectsFromMarkdown = async () => {
+      try {
+        const allPosts = await loadPosts();
+        const projectPosts = allPosts.filter((post) => post.type === "project");
+
+        const projectsData: Project[] = projectPosts.map((post) => ({
+          slug: post.slug,
+          title: post.title,
+          description: post.description || "",
+          image: post.image || "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg",
+          technologies: post.technologies || [],
+          category: post.tags || [],
+          githubLink: post.githubLink,
+          liveLink: post.liveLink,
+        }));
+
+        setProjects(projectsData);
+      } catch (error) {
+        console.error("Erro ao carregar projetos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProjectsFromMarkdown();
+  }, []);
+
+  // Projetos padrão como fallback (para manter compatibilidade)
+  const defaultProjects: Project[] = [
     {
       title: "Ecoletric – Smart Energy Management Platform",
       description:
@@ -158,6 +193,9 @@ const Projects: React.FC = () => {
     },
   ];
 
+  // Usar projetos carregados do markdown, ou fallback aos padrões
+  const finalProjects = projects.length > 0 ? projects : defaultProjects;
+
   const categories = [
     { id: "all", name: "All Projects" },
     { id: "enterprise", name: "Enterprise" },
@@ -170,13 +208,27 @@ const Projects: React.FC = () => {
     { id: "tools", name: "Tools & Libraries" },
     { id: "devops", name: "DevOps" },
     { id: "education", name: "Educational" },
+    { id: "fullstack", name: "Full Stack" },
+    { id: "ml", name: "Machine Learning" },
+    { id: "energy", name: "Energy" },
+    { id: "mobile", name: "Mobile" },
+    { id: "ar", name: "Augmented Reality" },
   ];
 
   const filteredProjects =
     filter === "all"
-      ? projects
-      : projects.filter((project) => project.category.includes(filter));
+      ? finalProjects
+      : finalProjects.filter((project) => project.category.includes(filter));
 
+  if (loading) {
+    return (
+      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-gray-700 dark:text-gray-300">Carregando projetos...</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -209,7 +261,8 @@ const Projects: React.FC = () => {
           {filteredProjects.map((project, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1"
+              className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+              onClick={() => navigate(`/post/${project.slug}`)}
             >
               <div className="h-48 overflow-hidden">
                 <img
@@ -244,6 +297,7 @@ const Projects: React.FC = () => {
                   {project.githubLink && (
                     <a
                       href={project.githubLink}
+                      onClick={(e) => e.stopPropagation()}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
@@ -255,6 +309,7 @@ const Projects: React.FC = () => {
                   {project.liveLink && (
                     <a
                       href={project.liveLink}
+                      onClick={(e) => e.stopPropagation()}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
