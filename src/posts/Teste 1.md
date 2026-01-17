@@ -6,7 +6,7 @@ tags:
   - typescript
   - web
   - tutorial
-title: Como começar com React e TypeScript
+title: Teste de funcionamento com posts e obsidian e funcionamento com github actions
 type: post
 description: Um guia prático para iniciar um projeto React com TypeScript, cobrindo configuração, tipagem e melhores práticas.
 ---
