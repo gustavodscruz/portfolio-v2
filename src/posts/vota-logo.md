@@ -2,6 +2,7 @@
 title: Explorando Streams com RabbitMQ: Meu Sistema de Votação "Vota Logo"
 type: post
 description: Um guia prático sobre meu projeto "Vota Logo", um sistema de votação desenvolvido em Java que explora conceitos de streams usando RabbitMQ, arquitetura e ideias para deploy.
+
 tags:
   - java
   - rabbitmq
